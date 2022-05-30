@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
-import { Button, Container, Form, ListGroup } from 'react-bootstrap'
-// import AddComment from './AddComment'
-// import CommentList from './CommentList'
+import { Button, Container, Form } from 'react-bootstrap'
 import SingleComment from './SingleComment'
 
-class CommentArea extends Component {
-
+export default class CommentArea extends Component {
     state = {
         reviews: {
             comment: "",
@@ -61,58 +58,53 @@ class CommentArea extends Component {
 
     render() {
         return (
-            <>
-                <Container className='col-6 p-1'
-                    style={{
-                        maxWidth: '13rem',
-                        height: "25rem",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "space-between",
-                    }}>
+            <Container className='col-6 p-1'
+                style={{
+                    maxWidth: '13rem',
+                    height: "25rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                }}>
 
 
-                    <h6 className='border py-1'>Book Id : {this.props.bookId}</h6>
-                    <SingleComment commentId={this.props.bookId} />
+                <h6 className='border py-1'>Book Id : {this.props.bookId}</h6>
 
+                <SingleComment commentId={this.props.bookId} />
 
-                    <Form onSubmit={this.handleSubmit} className='col-12 d-flex justify-content-between p-0 flex-wrap mx-auto'
-                        style={{ maxHeight: "2rem", maxWidth: '95%', position: "absolute", bottom: "6rem" }}>
-                        <Form.Group controlId="exampleForm.ControlInput1" className='col-8 p-0'>
-                            <Form.Label>Comments</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Add Comments"
-                                onChange={(e) => {
-                                    this.handleChange('comment', e.target.value)
-                                }}
-                            />
-                        </Form.Group>
-                        <Form.Group controlId="exampleForm.ControlInput1" className='col-3 p-0'>
-                            <Form.Label>Rate</Form.Label>
-                            <Form.Control
-                                className='p-1'
-                                type="number"
-                                placeholder="0"
-                                min="1" max="5"
-                                onChange={(e) => {
-                                    this.handleChange('rate', e.target.value)
-                                }}
-                            />
-                        </Form.Group>
+                <Form onSubmit={this.handleSubmit} className='col-12 d-flex justify-content-between p-0 flex-wrap mx-auto'
+                    style={{ maxHeight: "2rem", maxWidth: '95%', position: "absolute", bottom: "6rem" }}>
+                    <Form.Group controlId="exampleForm.ControlInput1" className='col-8 p-0'>
+                        <Form.Label>Comments</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="Add Comments"
+                            onChange={(e) => {
+                                this.handleChange('comment', e.target.value)
+                            }}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="exampleForm.ControlInput1" className='col-3 p-0'>
+                        <Form.Label>Rate</Form.Label>
+                        <Form.Control
+                            className='p-1'
+                            type="number"
+                            placeholder="0"
+                            min="1" max="5"
+                            onChange={(e) => {
+                                this.handleChange('rate', e.target.value)
+                            }}
+                        />
+                    </Form.Group>
 
-                        <Button variant="info" type="submit" className='col-12' >
-                            Add your comment!
-                        </Button>
-                    </Form>
+                    <Button variant="info" type="submit" className='col-12' >
+                        Add your comment!
+                    </Button>
+                </Form>
 
-                </Container>
+            </Container>
 
-            </>
 
         )
     }
-
 }
-
-export default CommentArea

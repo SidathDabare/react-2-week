@@ -1,99 +1,19 @@
-
 import React, { Component } from 'react'
-import { Container, Form } from 'react-bootstrap'
-import fantasy from "../books/fantasy.json"
-import SingleBook from './SingleBook'
-//import CommentArea from './CommentArea'
-class BookList extends Component {
-    state = { inputName: "fantasy" }
-    handleChange = (propertyToSet, value) => {
-        this.setState({
-            inputName: {
-                ...this.state.inputName,
-                [propertyToSet]: value,
-            },
+import { Col, Container, Row } from 'react-bootstrap'
+import BookTitle from './BookTitle'
+import CommentArea from './CommentArea'
 
-        })
-    }
-
+export default class BookList extends Component {
     render() {
         return (
-            <>
-
-                <Form className='col-10 col-md-8 mx-auto d-flex'>
-                    <Form.Group controlId="exampleForm.ControlInput1" className='col-6'>
-                        <Form.Label>Book title</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="Insert book title"
-
-                            onChange={(e) => {
-                                this.handleChange('inputName', e.target.value)
-                            }}
-
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="exampleForm.ControlSelect1" className='col-6'>
-                        <Form.Label>Select by category</Form.Label>
-                        <Form.Control
-                            as="select"
-                            onChange={(e) => {
-                                let category = e.target.value
-                                console.log(category)
-
-                            }}
-
-                        >
-                            <option>fantasy</option>
-                            <option>history</option>
-                            <option>horror</option>
-                            <option>romance</option>
-                            <option>scifi</option>
-                        </Form.Control>
-                    </Form.Group>
-                </Form>
-                <Container className='col-11 d-flex flex-wrap justify-content-between align-items-center'>
-                    {/* {this.state.inputName.filter((book) => {
-                        if (this.setState.inputName.value === "") {
-                            return book
-                        } else if (book.title.toLowerCase().includes(book.toLowerCase())) {
-                            console.log(book);
-                            return book
-                        }
-                    }).map((book) => {
-                        <SingleBook
-                            key={book.asin}
-                            image={book.img}
-                            name={book.title}
-                            price={book.price}
-                            asin={book.asin}
-                            category={book.category}
-                        />
-                    })} */}
-                    {fantasy.map((book) => (
-                        <SingleBook
-                            key={book.asin}
-                            image={book.img}
-                            name={book.title}
-                            price={book.price}
-                            asin={book.asin}
-                            category={book.category}
-                        />
-
-                    ))}
-
-                </Container>
-            </>
+            <Container className='bg-dark mt-4'>
+                <Row>
+                    <Col className='col-6'><BookTitle /></Col>
+                    <Col className='col-6'><CommentArea /></Col>
+                </Row>
 
 
+            </Container>
         )
     }
-
-
-
-
-
-
 }
-
-export default BookList
