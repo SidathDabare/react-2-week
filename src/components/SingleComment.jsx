@@ -87,7 +87,7 @@ export default class SingleComment extends Component {
                     height: "35rem",
 
                 }}>
-                {this.state.comments.slice(0, 5).map((comment, i) => (
+                {this.state.comments.slice(0, 10).map((comment, i) => (
                     <ListGroup.Item className='d-flex justify-content-between p-1' key={i}>
                         <span className='text-truncate w-75 text-left'>{comment.comment}</span>
                         <span>
