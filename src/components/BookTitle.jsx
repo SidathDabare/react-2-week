@@ -3,29 +3,27 @@ import { Card, Container } from 'react-bootstrap'
 import fantasy from "../books/fantasy.json"
 
 export default class BookTitle extends Component {
-    // checkSelected = (value) => (value === this.props.selected ? 'selected' : '')
 
     render() {
         return (
             <Container
                 style={{
                     margin: "5px",
-                    width: "300px",
-                    justifyContent: "center"
-
+                    width: "500px",
+                    height: "78vh",
+                    overflowY: "scroll"
                 }}
-
             >
-
                 {fantasy.map((book) => (
                     <Card
                         key={book.asin}
                         value={book.title}
-                        style={{ margin: "10px 0px" }}
+                        style={{ width: "250px", margin: "10px auto" }}
                         onClick={(e) => {
-                            console.log(e.target = book.asin)
+                            // console.log(e.target = book.asin)
                             this.props.changeSelected(book.asin)
-                        }}>
+                        }}
+                    >
                         <Card.Img
                             variant="top"
                             src={book.img}

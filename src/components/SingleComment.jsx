@@ -4,11 +4,12 @@ import { ListGroup, } from 'react-bootstrap'
 export default class SingleComment extends Component {
     state = {
         comments: [],
+
     }
 
     componentDidMount = () => {
         this.fetchComments()
-        this.deleteComment()
+
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -21,6 +22,7 @@ export default class SingleComment extends Component {
             this.fetchComments()
 
         }
+
     }
 
     fetchComments = async () => {
@@ -62,7 +64,6 @@ export default class SingleComment extends Component {
     }
     deleteComment = async (url) => {
         try {
-
             await fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -70,6 +71,8 @@ export default class SingleComment extends Component {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjdjZjg3MzZkMDZiOTAwMTUyZWYyOGMiLCJpYXQiOjE2NTM4MjI1MDEsImV4cCI6MTY1NTAzMjEwMX0.aANlcafrKSWVnXq61ZSmwt-z5lqaExeHLwmdtqQkfiQ"
                 }
             });
+            this.props.setLoading(true)
+            alert('Comments Deleted..!')
             const resData = 'resource deleted...';
             return resData;
         } catch (error) {
@@ -90,11 +93,14 @@ export default class SingleComment extends Component {
                 {this.state.comments.slice(0, 10).map((comment, i) => (
                     <ListGroup.Item className='d-flex justify-content-between p-1' key={i}>
                         <span className='text-truncate w-75 text-left'>{comment.comment}</span>
+                        <span className='text-truncate w-25'>Rate: {comment.rate} </span>
+
                         <span>
                             <i className="bi bi-x-square text-danger"
                                 style={{ cursor: "pointer" }}
                                 onClick={() => {
                                     this.deleteComment(`https://striveschool-api.herokuapp.com/api/comments/${comment._id}`)
+
                                 }}></i>
                         </span>
                     </ListGroup.Item>

@@ -18,7 +18,7 @@ export default class BookList extends Component {
         return (
             <Container className='bg-dark mt-4' variant="success" style={{
                 height: "80vh",
-                overflowY: "scroll"
+
             }}>
                 {this.props.selected}
                 <Row>

@@ -23,12 +23,7 @@ export default class CommentArea extends Component {
 
         })
     }
-    // componentDidUpdate = (prevProps, prevState) => {
-    //     console.log('componentDidUpdate fired!')
-    //     if (prevProps.selected !== this.props.selected) {
-    //         this.fetchComments()
-    //     }
-    // }
+
     setLoading = (boolean) => {
         this.setState({
             isLoading: boolean
@@ -54,8 +49,7 @@ export default class CommentArea extends Component {
             console.log('job done!')
             //console.log(response)
             if (response.ok) {
-
-                alert('Comments saved!')
+                //alert('Comments saved!')
                 this.setState({
                     comment: {
                         comment: "",
@@ -82,7 +76,7 @@ export default class CommentArea extends Component {
                 height: "65vh",
                 marginTop: "10px"
             }}>
-                <h6 className='border py-1 text-white'>Book Id: {this.props.selected}</h6>
+                <h6 className='border py-1 text-white' >Book Id: {this.props.selected}</h6>
                 <SingleComment setLoading={this.setLoading} isLoading={this.state.isLoading} commentId={this.props.selected} />
 
 
@@ -95,7 +89,9 @@ export default class CommentArea extends Component {
                             placeholder="Add Comments"
                             onChange={(e) => {
                                 this.handleChange('comment', e.target.value)
+
                             }}
+
                         />
                     </Form.Group>
                     <Form.Group controlId="exampleForm.ControlInput1" className='col-3 p-0'>
