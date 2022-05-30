@@ -3,6 +3,8 @@ import { Card, Container } from 'react-bootstrap'
 import fantasy from "../books/fantasy.json"
 
 export default class BookTitle extends Component {
+    // checkSelected = (value) => (value === this.props.selected ? 'selected' : '')
+
     render() {
         return (
             <Container
@@ -11,10 +13,19 @@ export default class BookTitle extends Component {
                     width: "300px",
                     justifyContent: "center"
 
-                }}>
+                }}
+
+            >
 
                 {fantasy.map((book) => (
-                    <Card key={book.asin} style={{ margin: "10px 0px" }}>
+                    <Card
+                        key={book.asin}
+                        value={book.title}
+                        style={{ margin: "10px 0px" }}
+                        onClick={(e) => {
+                            console.log(e.target = book.asin)
+                            this.props.changeSelected(book.asin)
+                        }}>
                         <Card.Img
                             variant="top"
                             src={book.img}
@@ -27,16 +38,8 @@ export default class BookTitle extends Component {
                             </Card.Text>
                         </Card.Body>
                     </Card>
-                    // <SingleBook
-                    //     key={book.asin}
-                    //     image={book.img}
-                    //     name={book.title}
-                    //     price={book.price}
-                    //     asin={book.asin}
-                    //     category={book.category}
-                    // />
-
-                ))}
+                ))
+                }
 
             </Container>
         )

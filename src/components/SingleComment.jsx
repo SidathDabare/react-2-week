@@ -1,29 +1,29 @@
 import React, { Component } from 'react'
-import { ListGroup, Spinner, Alert } from 'react-bootstrap'
+import { ListGroup, } from 'react-bootstrap'
 
 export default class SingleComment extends Component {
     state = {
         comments: [],
     }
-    deleteComment = async (url) => {
 
-        await fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'Content-type': 'application/json',
-                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjdjZjg3MzZkMDZiOTAwMTUyZWYyOGMiLCJpYXQiOjE2NTM4MjI1MDEsImV4cCI6MTY1NTAzMjEwMX0.aANlcafrKSWVnXq61ZSmwt-z5lqaExeHLwmdtqQkfiQ"
-            }
-        });
-
-
-        const resData = 'resource deleted...';
-
-        return resData;
-    }
     componentDidMount = () => {
-        this.fetchReservations()
+        this.fetchComments()
+        this.deleteComment()
     }
-    fetchReservations = async () => {
+
+    componentDidUpdate = (prevProps, prevState) => {
+        console.log('componentDidUpdate fired!')
+        if (prevProps.commentId !== this.props.commentId) {
+            this.fetchComments()
+
+        }
+        if (this.props.isLoading) {
+            this.fetchComments()
+
+        }
+    }
+
+    fetchComments = async () => {
         try {
             const response = await fetch(
                 'https://striveschool-api.herokuapp.com/api/comments/' + this.props.commentId,
@@ -36,18 +36,16 @@ export default class SingleComment extends Component {
                     }
                 }
             )
-            //console.log(response)
             if (response.ok) {
-                // server answered with 200! :)
-                let data = await response.json() // this gets the body out of the response, in order to use it!
-                // console.log('RESERVATIONS LIST!: ', data)
-                // we have to use setState in order to change the state object!
+
+                let data = await response.json()
+
                 this.setState({
                     comments: data,
-                    isLoading: false,
+
                 })
+                this.props.setLoading(false)
             } else {
-                // server answered with an error code! :(
                 console.log('error happened!')
                 this.setState({
                     isLoading: false,
@@ -55,8 +53,6 @@ export default class SingleComment extends Component {
                 })
             }
         } catch (error) {
-            // falling here if we're not able to contact the server at all
-            // (network issues?)
             console.log(error)
             this.setState({
                 isLoading: false,
@@ -64,15 +60,31 @@ export default class SingleComment extends Component {
             })
         }
     }
+    deleteComment = async (url) => {
+        try {
 
+            await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Content-type': 'application/json',
+                    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjdjZjg3MzZkMDZiOTAwMTUyZWYyOGMiLCJpYXQiOjE2NTM4MjI1MDEsImV4cCI6MTY1NTAzMjEwMX0.aANlcafrKSWVnXq61ZSmwt-z5lqaExeHLwmdtqQkfiQ"
+                }
+            });
+            const resData = 'resource deleted...';
+            return resData;
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
 
     render() {
         return (
 
             <ListGroup className='col-12 p-0'
                 style={{
-                    maxWidth: '13rem',
-                    height: "25rem",
+                    maxWidth: '100%',
+                    height: "35rem",
 
                 }}>
                 {this.state.comments.slice(0, 5).map((comment, i) => (
